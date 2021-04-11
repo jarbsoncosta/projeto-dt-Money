@@ -28,14 +28,11 @@ div{
         line-height:3rem;
     }
 
-
-
-
     &.higthlight-background{
     background: var(--green);
     color:#FFF;
 }
-}
+} 
 
 
 
