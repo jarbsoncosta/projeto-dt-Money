@@ -1,6 +1,8 @@
 
-import { Container } from './style'
+import { Container, TransactionTypeContainer } from './style'
 import closeImg from '../../../assets/close.svg'
+import incomeImg from '../../../assets/income.svg'
+import outcomeImg from '../../../assets/outcome.svg'
 import Modal from 'react-modal'
 
 
@@ -41,6 +43,23 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                     type="number"
                     placeholder="Valor"
                 />
+                <TransactionTypeContainer>
+                    <button
+
+                    >
+                        <img src={incomeImg} alt="Entrada" />
+                        <span>Entrada</span>
+                    </button>
+                    <button
+
+                    >
+                        <img src={outcomeImg} alt="Saída" />
+                        <span>Saída</span>
+                    </button>
+                </TransactionTypeContainer>
+
+
+
                 <input
                     placeholder="Categoria"
                 />
