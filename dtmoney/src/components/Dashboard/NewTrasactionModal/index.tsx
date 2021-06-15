@@ -1,5 +1,5 @@
 
-import { FormEvent, useContext, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { Container, TransactionTypeContainer, RadioBox } from './style'
 import closeImg from '../../../assets/close.svg'
 import incomeImg from '../../../assets/income.svg'
