@@ -40,8 +40,24 @@ td{
   }
     
 }
-
-
+button.delete[type="submit"]{
+    color:#E52E4D;
+    background: #ffff;
+    border: 0;
+    margin-left: 1rem
+    
+}
+button.edit[type="submit"]{
+    color:#000080;
+    background: #ffff;
+    border: 0;
+    margin-left: 1rem
+    
+}
+svg{
+    width:16px;
+    height:16px;
+}
 
 
 `

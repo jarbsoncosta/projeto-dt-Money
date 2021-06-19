@@ -1,11 +1,11 @@
+
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react'
 import { api } from '../services/api'
 
 
 
-
 interface Transaction {
-    id: number;
+    id?: string;
     title: string;
     amount: number;
     type: string;
@@ -13,7 +13,7 @@ interface Transaction {
     createdAt: string
 
 }
-type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>
+type TransactionInput = Omit<Transaction, 'createdAt'>
 
 
 interface TransactionsProviderProps {
@@ -24,9 +24,10 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
     transactions: Transaction[],
     createTransaction: (transaction: TransactionInput) => Promise<void>
+    deleteTransaction: (id: TransactionsProviderProps) => Promise<void>
+
 
 }
-
 
 export const TransactionsContext = createContext<TransactionsContextData>(
     {} as TransactionsContextData
@@ -38,7 +39,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
     useEffect(() => {
         api.get('transactions')
-            .then(response => setTransactions(response.data.transactions))
+            .then(response => setTransactions(response.data))
     }, []);
 
     async function createTransaction(transactionInput: TransactionInput) {
@@ -47,19 +48,25 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
             ...transactionInput,
             createdAt: new Date()
         })
-        const { transaction } = response.data
-        console.log(response.data)
+        const transaction = response.data
 
         setTransactions([
             ...transactions,
             transaction
 
-        ])
+        ]);
+
+    }
+    async function deleteTransaction(id: TransactionsProviderProps): Promise<void> {
+        api.delete(`transactions ${id}`)
+
+
+
 
     }
 
     return (
-        <TransactionsContext.Provider value={{ transactions, createTransaction }}>
+        <TransactionsContext.Provider value={{ transactions, createTransaction, deleteTransaction }}>
             {children}
 
         </TransactionsContext.Provider>

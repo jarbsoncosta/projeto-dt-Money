@@ -1,11 +1,16 @@
+
 import { useTransections } from "../../hooks/useTransections";
 import { Container } from "./style";
+import { FiEdit3, FiTrash } from 'react-icons/fi'
+
+
 
 
 
 export function TransactionTable() {
 
-    const { transactions } = useTransections()
+    const { transactions, deleteTransaction } = useTransections()
+
 
     return (
 
@@ -17,6 +22,7 @@ export function TransactionTable() {
                         <th>Valor</th>
                         <th>Categoia</th>
                         <th>Data</th>
+                        <th>Opção</th>
                     </tr>
 
                 </thead>
@@ -36,6 +42,29 @@ export function TransactionTable() {
                                     {new Intl.DateTimeFormat('pt-BR').format(
                                         new Date(transaction.createdAt)
                                     )}
+
+                                </td>
+                                <td>
+                                    <div className="options">
+
+                                        <button
+                                            type="submit"
+                                            className="edit"
+
+                                        >
+
+                                            <FiEdit3 />
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="delete"
+                                            onClick={deleteTransaction}
+
+                                        >
+                                            <FiTrash />
+                                        </button>
+
+                                    </div>
                                 </td>
                             </tr>
                         )
