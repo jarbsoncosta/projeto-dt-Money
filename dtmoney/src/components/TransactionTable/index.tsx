@@ -58,7 +58,8 @@ export function TransactionTable() {
                                         <button
                                             type="submit"
                                             className="delete"
-                                            onClick={deleteTransaction}
+                                            onClick={() => deleteTransaction(transaction)}
+
 
                                         >
                                             <FiTrash />
