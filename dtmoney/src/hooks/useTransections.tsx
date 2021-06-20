@@ -2,10 +2,12 @@
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react'
 import { api } from '../services/api'
 
-
+interface Delete {
+    id: string
+}
 
 interface Transaction {
-    id?: string;
+    id: string;
     title: string;
     amount: number;
     type: string;
@@ -13,7 +15,7 @@ interface Transaction {
     createdAt: string
 
 }
-type TransactionInput = Omit<Transaction, 'createdAt'>
+type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>
 
 
 interface TransactionsProviderProps {
@@ -24,7 +26,7 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
     transactions: Transaction[],
     createTransaction: (transaction: TransactionInput) => Promise<void>
-    deleteTransaction: (id: Transaction) => Promise<void>
+    deleteTransaction: (id: Delete) => Promise<void>
 
 
 }
@@ -44,7 +46,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
     async function createTransaction(transactionInput: TransactionInput) {
 
-        const response = await api.post('', {
+        const response = await api.post('transactions', {
             ...transactionInput,
             createdAt: new Date()
         })
@@ -57,8 +59,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         ]);
 
     }
-    async function deleteTransaction(id: Transaction) {
-        await api.delete(`transactions${id}`)
+    async function deleteTransaction(id: Delete) {
+        await api.delete(`transactions/${id}`)
+
 
     }
 
